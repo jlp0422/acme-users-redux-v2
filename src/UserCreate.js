@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import store, { changeName, createUser } from './store';
+import store, { changeName, createUserThunk } from './store';
 import axios from 'axios'
 
 export default class UserCreate extends React.Component {
@@ -30,13 +30,7 @@ export default class UserCreate extends React.Component {
   onCreateUser(ev) {
     ev.preventDefault()
     const name = this.state.name
-    axios.post('/api/users', ({name}))
-      .then( res => res.data)
-      .then( user => {
-        const action = createUser(user)
-        store.dispatch(action)
-      })
-      .then(() => location.hash = '/')
+    store.dispatch(createUserThunk(name))
   }
 
   render() {

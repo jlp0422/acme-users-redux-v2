@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import store, { deleteUser } from './store';
+import store, { deleteUserThunk } from './store';
 
 export default class Users extends React.Component {
   constructor() {
@@ -18,13 +18,7 @@ export default class Users extends React.Component {
   }
 
   onDelete(id) {
-    axios.delete(`/api/users/${id}`)
-      .then( res => res.config.url)
-      .then( url => {
-        const id = url.split('/')[3]
-        const action = deleteUser(id*1)
-        store.dispatch(action)
-      })
+    store.dispatch(deleteUserThunk(id))
   }
 
   componentWillUnmount() {

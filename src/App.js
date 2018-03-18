@@ -2,7 +2,7 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios'
-import store, { getAllUsers } from './store'
+import store, { getAllUsersThunk } from './store'
 import Nav from './Nav';
 import Users from './Users';
 import UserCreate from './UserCreate';
@@ -16,12 +16,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/api/users')
-      .then(res => res.data)
-      .then(users => {
-        const action = getAllUsers(users)
-        store.dispatch(action)
-      })
+    store.dispatch(getAllUsersThunk())
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()))
   }
 

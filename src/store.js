@@ -1,4 +1,7 @@
-import { createStore } from 'redux';
+/* eslint-disable */
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import axios from 'axios';
 
 const GET_ALL_USERS = 'GET_ALL_USERS';
 const DELETE_USER = 'DELETE_USER';
@@ -12,6 +15,7 @@ const initialState = {
   name: ''
 }
 
+// getting users from server
 export const getAllUsers = (users) => {
   return {
     type: GET_ALL_USERS,
@@ -19,11 +23,35 @@ export const getAllUsers = (users) => {
   }
 }
 
+export function getAllUsersThunk() {
+  return function thunk(dispatch) {
+    axios.get('/api/users')
+      .then(res => res.data)
+      .then(users => {
+        const action = getAllUsers(users)
+        dispatch(action)
+      })
+  }
+}
+
+// deleting user from server
 export const deleteUser = (id) => {
   const users = store.getState().users.filter( user => user.id !== id)
   return {
     type: DELETE_USER,
     users
+  }
+}
+
+export function deleteUserThunk(id) {
+  return function thunk(dispatch) {
+    axios.delete(`/api/users/${id}`)
+      .then(res => res.config.url)
+      .then(url => {
+        const id = url.split('/')[3]
+        const action = deleteUser(id * 1)
+        dispatch(action)
+      })
   }
 }
 
@@ -41,6 +69,18 @@ export const createUser = (user) => {
   }
 }
 
+export function createUserThunk(name) {
+  return function thunk(dispatch) {
+    axios.post('/api/users', ({ name }))
+      .then( res => res.data)
+      .then( user => {
+        const action = createUser(user)
+        dispatch(action)
+      })
+      .then(() => location.hash = '/')
+  }
+}
+
 export const setName = (name) => {
   return {
     type: SET_NAME,
@@ -48,6 +88,7 @@ export const setName = (name) => {
   }
 }
 
+// updating user
 export const updateUser = (user, users) => {
   return {
     type: UPDATE_USER,
@@ -75,6 +116,8 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-const store = createStore(reducer)
+const middleware = applyMiddleware(thunk)
+
+const store = createStore(reducer, middleware)
 
 export default store;

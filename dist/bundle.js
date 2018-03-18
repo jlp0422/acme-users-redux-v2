@@ -1320,10 +1320,24 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.updateUser = exports.setName = exports.createUser = exports.changeName = exports.deleteUser = exports.getAllUsers = undefined;
+exports.getAllUsersThunk = getAllUsersThunk;
+exports.deleteUserThunk = deleteUserThunk;
+exports.createUserThunk = createUserThunk;
 
 var _redux = __webpack_require__(109);
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+var _reduxThunk = __webpack_require__(129);
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _axios = __webpack_require__(15);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* eslint-disable */
+
 
 var GET_ALL_USERS = 'GET_ALL_USERS';
 var DELETE_USER = 'DELETE_USER';
@@ -1335,15 +1349,27 @@ var UPDATE_USER = 'UPDATE_USER';
 var initialState = {
   users: [],
   name: ''
-};
 
-var getAllUsers = exports.getAllUsers = function getAllUsers(users) {
+  // getting users from server
+};var getAllUsers = exports.getAllUsers = function getAllUsers(users) {
   return {
     type: GET_ALL_USERS,
     users: users
   };
 };
 
+function getAllUsersThunk() {
+  return function thunk(dispatch) {
+    _axios2.default.get('/api/users').then(function (res) {
+      return res.data;
+    }).then(function (users) {
+      var action = getAllUsers(users);
+      dispatch(action);
+    });
+  };
+}
+
+// deleting user from server
 var deleteUser = exports.deleteUser = function deleteUser(id) {
   var users = store.getState().users.filter(function (user) {
     return user.id !== id;
@@ -1353,6 +1379,18 @@ var deleteUser = exports.deleteUser = function deleteUser(id) {
     users: users
   };
 };
+
+function deleteUserThunk(id) {
+  return function thunk(dispatch) {
+    _axios2.default.delete('/api/users/' + id).then(function (res) {
+      return res.config.url;
+    }).then(function (url) {
+      var id = url.split('/')[3];
+      var action = deleteUser(id * 1);
+      dispatch(action);
+    });
+  };
+}
 
 var changeName = exports.changeName = function changeName(input) {
   return {
@@ -1368,6 +1406,19 @@ var createUser = exports.createUser = function createUser(user) {
   };
 };
 
+function createUserThunk(name) {
+  return function thunk(dispatch) {
+    _axios2.default.post('/api/users', { name: name }).then(function (res) {
+      return res.data;
+    }).then(function (user) {
+      var action = createUser(user);
+      dispatch(action);
+    }).then(function () {
+      return location.hash = '/';
+    });
+  };
+}
+
 var setName = exports.setName = function setName(name) {
   return {
     type: SET_NAME,
@@ -1375,6 +1426,7 @@ var setName = exports.setName = function setName(name) {
   };
 };
 
+// updating user
 var updateUser = exports.updateUser = function updateUser(user, users) {
   return {
     type: UPDATE_USER,
@@ -1405,7 +1457,9 @@ var reducer = function reducer() {
   }
 };
 
-var store = (0, _redux.createStore)(reducer);
+var middleware = (0, _redux.applyMiddleware)(_reduxThunk2.default);
+
+var store = (0, _redux.createStore)(reducer, middleware);
 
 exports.default = store;
 
@@ -20985,12 +21039,7 @@ var App = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios2.default.get('/api/users').then(function (res) {
-        return res.data;
-      }).then(function (users) {
-        var action = (0, _store.getAllUsers)(users);
-        _store2.default.dispatch(action);
-      });
+      _store2.default.dispatch((0, _store.getAllUsersThunk)());
       this.unsubscribe = _store2.default.subscribe(function () {
         return _this2.setState(_store2.default.getState());
       });
@@ -26291,13 +26340,7 @@ var Users = function (_React$Component) {
   }, {
     key: 'onDelete',
     value: function onDelete(id) {
-      _axios2.default.delete('/api/users/' + id).then(function (res) {
-        return res.config.url;
-      }).then(function (url) {
-        var id = url.split('/')[3];
-        var action = (0, _store.deleteUser)(id * 1);
-        _store2.default.dispatch(action);
-      });
+      _store2.default.dispatch((0, _store.deleteUserThunk)(id));
     }
   }, {
     key: 'componentWillUnmount',
@@ -26427,14 +26470,7 @@ var UserCreate = function (_React$Component) {
     value: function onCreateUser(ev) {
       ev.preventDefault();
       var name = this.state.name;
-      _axios2.default.post('/api/users', { name: name }).then(function (res) {
-        return res.data;
-      }).then(function (user) {
-        var action = (0, _store.createUser)(user);
-        _store2.default.dispatch(action);
-      }).then(function () {
-        return location.hash = '/';
-      });
+      _store2.default.dispatch((0, _store.createUserThunk)(name));
     }
   }, {
     key: 'render',
@@ -26620,6 +26656,35 @@ var Products = function Products() {
 };
 
 exports.default = Products;
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+function createThunkMiddleware(extraArgument) {
+  return function (_ref) {
+    var dispatch = _ref.dispatch,
+        getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        if (typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+
+        return next(action);
+      };
+    };
+  };
+}
+
+var thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+exports['default'] = thunk;
 
 /***/ })
 /******/ ]);
