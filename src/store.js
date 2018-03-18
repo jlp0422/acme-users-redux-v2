@@ -4,6 +4,8 @@ const GET_ALL_USERS = 'GET_ALL_USERS';
 const DELETE_USER = 'DELETE_USER';
 const CHANGE_NAME = 'CHANGE_NAME';
 const CREATE_USER = 'CREATE_USER';
+const SET_NAME = 'SET_NAME';
+const UPDATE_USER = 'UPDATE_USER';
 
 const initialState = {
   users: [],
@@ -39,6 +41,21 @@ export const createUser = (user) => {
   }
 }
 
+export const setName = (name) => {
+  return {
+    type: SET_NAME,
+    name
+  }
+}
+
+export const updateUser = (user, users) => {
+  return {
+    type: UPDATE_USER,
+    user,
+    users
+  }
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_ALL_USERS':
@@ -48,7 +65,11 @@ const reducer = (state = initialState, action) => {
     case 'CHANGE_NAME':
       return Object.assign({}, state, { name: action.name });
     case 'CREATE_USER':
-      return Object.assign({}, state, { users: [...state.users, action.user ]})
+      return Object.assign({}, state, { users: [...state.users, action.user ]});
+    case 'SET_NAME':
+      return Object.assign({}, state, { name: action.name });
+    case 'UPDATE_USER':
+      return Object.assign({}, state, { users: [ ...action.users, action.user ]})
     default:
       return state;
   }

@@ -17,6 +17,12 @@ app.get('/api/users', (req, res, next) => {
     .catch(next)
 })
 
+app.get('/api/users/:id', (req, res, next) => {
+  User.findById(req.params.id)
+    .then( user => res.send(user))
+    .catch(next)
+})
+
 app.post('/api/users', (req, res, next) => {
   console.log(req.body)
   User.create(req.body)
@@ -28,6 +34,16 @@ app.delete(`/api/users/:id`, (req, res ,next) => {
   User.findById(req.params.id)
     .then(user => user.destroy())
     .then(() => res.sendStatus(204))
+    .catch(next)
+})
+
+app.put('/api/users/:id', (req, res, next) => {
+  User.findById(req.params.id)
+    .then( user => {
+      Object.assign(user, req.body)
+      return user.save()
+    })
+    .then( user => res.send(user))
     .catch(next)
 })
 

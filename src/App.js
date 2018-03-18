@@ -1,11 +1,12 @@
 /* eslint-disable */
 import React from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios'
 import store, { getAllUsers } from './store'
 import Nav from './Nav';
 import Users from './Users';
-import UserCreate from './UserCreate'
+import UserCreate from './UserCreate';
+import UserEdit from './UserEdit';
 
 export default class App extends React.Component {
   constructor() {
@@ -33,10 +34,12 @@ export default class App extends React.Component {
         <div>
           <Nav />
           <Route path='/' exact component={ Users } />
-          <Route path='/users/create' exact component={ UserCreate } />
+          <Switch>
+            <Route path='/users/create' exact component={ UserCreate } />
+            <Route path='/users/:id' exact component={ UserEdit } />
+          </Switch>
         </div>
       </Router>
-
     )
   }
 }

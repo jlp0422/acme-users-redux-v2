@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import store, { deleteUser } from './store';
 
@@ -40,7 +41,7 @@ export default class Users extends React.Component {
           {
             users.map(user => (
               <li key={user.id}>
-              {user.name}
+              <Link to={`/users/${user.id}`}>{user.name}</Link>
               &nbsp;&nbsp;
               <button onClick={() => onDelete(user.id)}>Delete</button>
               </li>
