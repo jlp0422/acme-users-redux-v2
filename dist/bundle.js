@@ -26695,7 +26695,7 @@ var Products = function Products() {
   return _react2.default.createElement(
     'h1',
     null,
-    'WE HAVE NO PRODUCTS.'
+    '#SWEET16'
   );
 };
 
