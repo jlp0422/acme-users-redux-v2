@@ -55,6 +55,7 @@ export function deleteUserThunk(id) {
   }
 }
 
+// input changes on form
 export const changeName = (input) => {
   return {
     type: CHANGE_NAME,
@@ -62,6 +63,7 @@ export const changeName = (input) => {
   }
 }
 
+// creating user, adding to server
 export const createUser = (user) => {
   return {
     type: CREATE_USER,
@@ -81,10 +83,22 @@ export function createUserThunk(name) {
   }
 }
 
+// setting name on edit
 export const setName = (name) => {
   return {
     type: SET_NAME,
     name
+  }
+}
+
+export function setNameThunk(id) {
+  return function thunk(dispatch) {
+    axios.get(`/api/users/${id}`)
+      .then(res => res.data)
+      .then(user => {
+        const action = setName(user.name)
+        store.dispatch(action)
+      })
   }
 }
 
@@ -94,6 +108,19 @@ export const updateUser = (user, users) => {
     type: UPDATE_USER,
     user,
     users
+  }
+}
+
+export function updateUserThunk(id, name) {
+  return function thunk(dispatch) {
+    axios.put(`/api/users/${id}`, ({ name }))
+      .then(res => res.data)
+      .then(user => {
+        const users = store.getState().users.filter(u => u.id !== user.id)
+        const action = updateUser(user, users)
+        store.dispatch(action)
+      })
+      .then(() => location.hash = '/')
   }
 }
 

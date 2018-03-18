@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import axios from 'axios';
-import store, { setName, changeName, updateUser } from './store';
+import store, { setNameThunk, changeName, updateUserThunk } from './store';
 
 export default class UserEdit extends React.Component {
   constructor() {
@@ -14,12 +14,7 @@ export default class UserEdit extends React.Component {
   componentDidMount() {
     this.unsubscribe = store.subscribe(()=> this.setState(store.getState()))
     const userId = location.hash.split('/')[2]
-    axios.get(`/api/users/${userId}`)
-      .then( res => res.data)
-      .then( user => {
-        const action = setName(user.name)
-        store.dispatch(action)
-      })
+    store.dispatch(setNameThunk(userId))
   }
 
   componentWillUnmount() {
@@ -33,16 +28,9 @@ export default class UserEdit extends React.Component {
 
   onSave(ev) {
     ev.preventDefault()
-    const userId = location.hash.split('/')[2]
+    const id = location.hash.split('/')[2]
     const { name } = this.state
-    axios.put(`/api/users/${userId}`, ({ name }))
-      .then( res => res.data)
-      .then( user => {
-        const users = this.state.users.filter(u => u.id !== user.id)
-        const action = updateUser(user, users)
-        store.dispatch(action)
-      })
-      .then(() => location.hash = '/')
+    store.dispatch(updateUserThunk(id, name))
   }
 
   render() {
