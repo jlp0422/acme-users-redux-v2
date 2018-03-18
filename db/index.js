@@ -15,7 +15,9 @@ const seed = () => {
   return Promise.all([
     User.create({ name: 'Frank' }),
     User.create({ name: 'Tyus' }),
-    User.create({ name: 'Oshae' })
+    User.create({ name: 'Oshae' }),
+    User.create({ name: 'Marek' }),
+    User.create({ name: 'Paschal' })
   ])
 }
 

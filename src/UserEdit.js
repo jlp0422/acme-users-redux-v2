@@ -50,9 +50,9 @@ export default class UserEdit extends React.Component {
     const { name } = this.state
     return (
       <div>
-        <form onSubmit={ onSave }>
-          <input value={ name } onChange={ onChange }/>
-          <button>Save</button>
+        <form className="form-group" onSubmit={ onSave }>
+          <input className="form-control" value={ name } onChange={ onChange }/>
+          <button style={{ marginTop: 20 }} className="btn btn-success">Save</button>
         </form>
       </div>
     )

@@ -26178,36 +26178,49 @@ var _reactRouterDom = __webpack_require__(13);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Nav = function Nav() {
+  var slash = location.hash;
   return _react2.default.createElement(
     'div',
-    null,
+    { style: { margin: '10px 0px 20px' } },
     _react2.default.createElement(
       'ul',
-      null,
-      _react2.default.createElement(
+      { className: 'nav nav-pills' },
+      slash === '#/' ? _react2.default.createElement(
+        'span',
+        { className: 'active nav-item nav-link' },
+        'Users'
+      ) : _react2.default.createElement(
         _reactRouterDom.Link,
-        { to: '/' },
+        { className: 'nav-link', to: '/' },
         _react2.default.createElement(
           'li',
-          null,
+          { className: 'nav-item' },
           'Users'
         )
       ),
-      _react2.default.createElement(
+      slash === '#/users/create' ? _react2.default.createElement(
+        'span',
+        { className: 'active nav-item nav-link' },
+        'Create User'
+      ) : _react2.default.createElement(
         _reactRouterDom.Link,
-        { to: '/users/create' },
+        { className: 'nav-link', to: '/users/create' },
         _react2.default.createElement(
           'li',
-          null,
+          { className: 'nav-item' },
           'Create User'
         )
       ),
-      _react2.default.createElement(
+      slash === '#/products' ? _react2.default.createElement(
+        'span',
+        { className: 'active nav-item nav-link' },
+        'Products'
+      ) : _react2.default.createElement(
         _reactRouterDom.Link,
-        { to: '/products' },
+        { className: 'nav-link', to: '/products' },
         _react2.default.createElement(
           'li',
-          null,
+          { className: 'nav-item' },
           'Products'
         )
       )
@@ -26309,20 +26322,20 @@ var Users = function (_React$Component) {
         ),
         _react2.default.createElement(
           'ul',
-          null,
+          { className: 'list-group' },
           users.map(function (user) {
             return _react2.default.createElement(
               'li',
-              { key: user.id },
+              { style: { fontSize: 20 }, className: 'list-group-item', key: user.id },
               _react2.default.createElement(
                 _reactRouterDom.Link,
                 { to: '/users/' + user.id },
                 user.name
               ),
-              '\xA0\xA0',
+              '\xA0\xA0\xA0',
               _react2.default.createElement(
                 'button',
-                { onClick: function onClick() {
+                { className: 'btn btn-danger', onClick: function onClick() {
                     return onDelete(user.id);
                   } },
                 'Delete'
@@ -26433,12 +26446,17 @@ var UserCreate = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
+          'h2',
+          null,
+          'Create a user'
+        ),
+        _react2.default.createElement(
           'form',
-          { onSubmit: onCreateUser },
-          _react2.default.createElement('input', { onChange: onChange }),
+          { className: 'form-group', onSubmit: onCreateUser },
+          _react2.default.createElement('input', { className: 'form-control', onChange: onChange }),
           _react2.default.createElement(
             'button',
-            null,
+            { className: 'btn btn-outline-success', style: { marginTop: 20 } },
             'Create user'
           )
         )
@@ -26559,11 +26577,11 @@ var UserEdit = function (_React$Component) {
         null,
         _react2.default.createElement(
           'form',
-          { onSubmit: onSave },
-          _react2.default.createElement('input', { value: name, onChange: onChange }),
+          { className: 'form-group', onSubmit: onSave },
+          _react2.default.createElement('input', { className: 'form-control', value: name, onChange: onChange }),
           _react2.default.createElement(
             'button',
-            null,
+            { style: { marginTop: 20 }, className: 'btn btn-success' },
             'Save'
           )
         )
@@ -26597,7 +26615,7 @@ var Products = function Products() {
   return _react2.default.createElement(
     'h1',
     null,
-    'WE HAVE NO PRODUCTS :('
+    'WE HAVE NO PRODUCTS.'
   );
 };
 

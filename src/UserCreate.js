@@ -43,9 +43,10 @@ export default class UserCreate extends React.Component {
     const { onChange, onCreateUser } = this
     return (
       <div>
-        <form onSubmit={ onCreateUser }>
-          <input onChange={ onChange }/>
-          <button>Create user</button>
+        <h2>Create a user</h2>
+        <form className="form-group" onSubmit={ onCreateUser }>
+          <input className="form-control" onChange={ onChange }/>
+          <button className="btn btn-outline-success" style={{ marginTop: 20 }}>Create user</button>
         </form>
       </div>
     )

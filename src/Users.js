@@ -37,13 +37,13 @@ export default class Users extends React.Component {
     return (
       <div>
         <h2>We have { users.length } users</h2>
-        <ul>
+        <ul className="list-group" >
           {
             users.map(user => (
-              <li key={user.id}>
+              <li style={{ fontSize: 20 }}className="list-group-item" key={user.id}>
               <Link to={`/users/${user.id}`}>{user.name}</Link>
-              &nbsp;&nbsp;
-              <button onClick={() => onDelete(user.id)}>Delete</button>
+              &nbsp;&nbsp;&nbsp;
+              <button className="btn btn-danger" onClick={() => onDelete(user.id)}>Delete</button>
               </li>
             ))
           }
