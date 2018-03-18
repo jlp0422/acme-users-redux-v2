@@ -2,6 +2,13 @@ import { createStore } from 'redux';
 
 const GET_ALL_USERS = 'GET_ALL_USERS';
 const DELETE_USER = 'DELETE_USER';
+const CHANGE_NAME = 'CHANGE_NAME';
+const CREATE_USER = 'CREATE_USER';
+
+const initialState = {
+  users: [],
+  name: ''
+}
 
 export const getAllUsers = (users) => {
   return {
@@ -18,9 +25,18 @@ export const deleteUser = (id) => {
   }
 }
 
-const initialState = {
-  users: [],
-  name: ''
+export const changeName = (input) => {
+  return {
+    type: CHANGE_NAME,
+    name: input
+  }
+}
+
+export const createUser = (user) => {
+  return {
+    type: CREATE_USER,
+    user
+  }
 }
 
 const reducer = (state = initialState, action) => {
@@ -28,7 +44,11 @@ const reducer = (state = initialState, action) => {
     case 'GET_ALL_USERS':
       return Object.assign({}, state, { users: action.users });
     case 'DELETE_USER':
-      return Object.assign({}, state, { users: action.users })
+      return Object.assign({}, state, { users: action.users });
+    case 'CHANGE_NAME':
+      return Object.assign({}, state, { name: action.name });
+    case 'CREATE_USER':
+      return Object.assign({}, state, { users: [...state.users, action.user ]})
     default:
       return state;
   }

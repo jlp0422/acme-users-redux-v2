@@ -5,6 +5,7 @@ const db = require('./db');
 const { User } = db.models
 
 app.use('/dist', express.static(path.join(__dirname, 'dist')))
+app.use(require('body-parser').json())
 
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'index.html'))
@@ -17,6 +18,7 @@ app.get('/api/users', (req, res, next) => {
 })
 
 app.post('/api/users', (req, res, next) => {
+  console.log(req.body)
   User.create(req.body)
     .then( user => res.send(user))
     .catch(next)
