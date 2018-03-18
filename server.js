@@ -24,7 +24,6 @@ app.get('/api/users/:id', (req, res, next) => {
 })
 
 app.post('/api/users', (req, res, next) => {
-  console.log(req.body)
   User.create(req.body)
     .then( user => res.send(user))
     .catch(next)
