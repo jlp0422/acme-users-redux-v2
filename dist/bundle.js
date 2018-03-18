@@ -20955,6 +20955,10 @@ var _UserEdit = __webpack_require__(127);
 
 var _UserEdit2 = _interopRequireDefault(_UserEdit);
 
+var _Products = __webpack_require__(128);
+
+var _Products2 = _interopRequireDefault(_Products);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21012,7 +21016,8 @@ var App = function (_React$Component) {
             null,
             _react2.default.createElement(_reactRouterDom.Route, { path: '/users/create', exact: true, component: _UserCreate2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/users/:id', exact: true, component: _UserEdit2.default })
-          )
+          ),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/products', exact: true, component: _Products2.default })
         )
       );
     }
@@ -26570,6 +26575,33 @@ var UserEdit = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = UserEdit;
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Products = function Products() {
+  return _react2.default.createElement(
+    'h1',
+    null,
+    'WE HAVE NO PRODUCTS :('
+  );
+};
+
+exports.default = Products;
 
 /***/ })
 /******/ ]);

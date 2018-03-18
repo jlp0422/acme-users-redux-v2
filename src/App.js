@@ -7,6 +7,7 @@ import Nav from './Nav';
 import Users from './Users';
 import UserCreate from './UserCreate';
 import UserEdit from './UserEdit';
+import Products from './Products';
 
 export default class App extends React.Component {
   constructor() {
@@ -38,6 +39,7 @@ export default class App extends React.Component {
             <Route path='/users/create' exact component={ UserCreate } />
             <Route path='/users/:id' exact component={ UserEdit } />
           </Switch>
+          <Route path='/products' exact component={ Products } />
         </div>
       </Router>
     )
