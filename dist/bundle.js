@@ -26656,6 +26656,11 @@ var UserEdit = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
+          'h2',
+          null,
+          'Edit user'
+        ),
+        _react2.default.createElement(
           'form',
           { className: 'form-group', onSubmit: onSave },
           _react2.default.createElement('input', { className: 'form-control', value: name, onChange: onChange }),
