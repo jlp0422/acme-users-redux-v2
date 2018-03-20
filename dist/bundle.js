@@ -26669,7 +26669,7 @@ var UserEdit = function (_React$Component) {
           _react2.default.createElement('input', { className: 'form-control', value: name, onChange: onChange }),
           _react2.default.createElement(
             'button',
-            { style: { marginTop: 20 }, className: 'btn btn-success' },
+            { disabled: name ? null : true, style: { marginTop: 20 }, className: 'btn btn-success' },
             'Save'
           )
         )

@@ -42,7 +42,7 @@ export default class UserEdit extends React.Component {
         <h2>Edit user</h2>
         <form className="form-group" onSubmit={ onSave }>
           <input className="form-control" value={ name } onChange={ onChange }/>
-          <button style={{ marginTop: 20 }} className="btn btn-success">Save</button>
+          <button disabled={ name ? null : true } style={{ marginTop: 20 }} className="btn btn-success">Save</button>
         </form>
       </div>
     )
