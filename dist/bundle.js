@@ -26433,7 +26433,7 @@ var Users = function (_React$Component) {
               { style: { fontSize: 20 }, className: 'list-group-item', key: user.id },
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: '/users/' + user.id },
+                { className: 'users', to: '/users/' + user.id },
                 user.name
               ),
               '\xA0\xA0\xA0',
