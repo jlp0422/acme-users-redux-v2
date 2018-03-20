@@ -26429,20 +26429,20 @@ var Users = function (_React$Component) {
           { className: 'list-group' },
           users.map(function (user) {
             return _react2.default.createElement(
-              'li',
-              { style: { fontSize: 20 }, className: 'list-group-item', key: user.id },
+              _reactRouterDom.Link,
+              { className: 'users', to: '/users/' + user.id },
               _react2.default.createElement(
-                _reactRouterDom.Link,
-                { className: 'users', to: '/users/' + user.id },
-                user.name
-              ),
-              '\xA0\xA0\xA0',
-              _react2.default.createElement(
-                'button',
-                { className: 'btn btn-danger', onClick: function onClick() {
-                    return onDelete(user.id);
-                  } },
-                'Delete'
+                'li',
+                { style: { fontSize: 20 }, className: 'list-group-item users', key: user.id },
+                user.name,
+                '\xA0\xA0\xA0',
+                _react2.default.createElement(
+                  'button',
+                  { className: 'btn btn-secondary', onClick: function onClick() {
+                      return onDelete(user.id);
+                    } },
+                  'Delete'
+                )
               )
             );
           })

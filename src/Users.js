@@ -34,13 +34,15 @@ export default class Users extends React.Component {
         <ul className="list-group" >
           {
             users.map(user => (
-              <li style={{ fontSize: 20 }} className="list-group-item" key={user.id}>
-              <Link className="users" to={`/users/${user.id}`}>{user.name}</Link>
+              <Link className="users" to={`/users/${user.id}`}>
+              <li style={{ fontSize: 20 }} className="list-group-item users" key={user.id}>
+              {user.name}
               &nbsp;&nbsp;&nbsp;
-              <button className="btn btn-danger" onClick={() => onDelete(user.id)}>Delete</button>
+              <button className="btn btn-secondary" onClick={() => onDelete(user.id)}>Delete</button>
               </li>
-            ))
-          }
+              </Link>
+              ))
+            }
         </ul>
       </div>
     )
