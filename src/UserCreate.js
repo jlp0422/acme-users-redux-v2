@@ -35,12 +35,13 @@ export default class UserCreate extends React.Component {
 
   render() {
     const { onChange, onCreateUser } = this
+    const { name } = this.state
     return (
       <div>
         <h2>Create a user</h2>
         <form className="form-group" onSubmit={ onCreateUser }>
           <input className="form-control" onChange={ onChange }/>
-          <button className="btn btn-outline-success" style={{ marginTop: 20 }}>Create user</button>
+          <button disabled={ name ? null : true} className="btn btn-outline-success" style={{ marginTop: 20 }}>Create user</button>
         </form>
       </div>
     )

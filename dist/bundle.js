@@ -26538,6 +26538,7 @@ var UserCreate = function (_React$Component) {
     value: function render() {
       var onChange = this.onChange,
           onCreateUser = this.onCreateUser;
+      var name = this.state.name;
 
       return _react2.default.createElement(
         'div',
@@ -26553,7 +26554,7 @@ var UserCreate = function (_React$Component) {
           _react2.default.createElement('input', { className: 'form-control', onChange: onChange }),
           _react2.default.createElement(
             'button',
-            { className: 'btn btn-outline-success', style: { marginTop: 20 } },
+            { disabled: name ? null : true, className: 'btn btn-outline-success', style: { marginTop: 20 } },
             'Create user'
           )
         )
@@ -26648,6 +26649,7 @@ var UserEdit = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.state);
       var onSave = this.onSave,
           onChange = this.onChange;
       var name = this.state.name;
