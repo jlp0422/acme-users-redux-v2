@@ -15,7 +15,11 @@ app.get('/', (req, res, next) => {
 })
 
 app.get('/api/users', (req, res, next) => {
-  User.findAll()
+  User.findAll({
+    // order: [
+    //   ['id', 'DESC']
+    // ]
+  })
     .then( users => res.send(users))
     .catch(next)
 })
