@@ -26400,7 +26400,8 @@ var Users = function (_React$Component) {
     }
   }, {
     key: 'onDelete',
-    value: function onDelete(id) {
+    value: function onDelete(ev, id) {
+      ev.preventDefault();
       _store2.default.dispatch((0, _store.deleteUserThunk)(id));
     }
   }, {
@@ -26438,8 +26439,8 @@ var Users = function (_React$Component) {
                 '\xA0\xA0\xA0',
                 _react2.default.createElement(
                   'button',
-                  { className: 'btn btn-secondary', onClick: function onClick() {
-                      return onDelete(user.id);
+                  { className: 'btn btn-secondary', onClick: function onClick(ev) {
+                      return onDelete(ev, user.id);
                     } },
                   'Delete'
                 )

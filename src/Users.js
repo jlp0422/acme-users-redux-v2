@@ -17,7 +17,8 @@ export default class Users extends React.Component {
     })
   }
 
-  onDelete(id) {
+  onDelete(ev, id) {
+    ev.preventDefault()
     store.dispatch(deleteUserThunk(id))
   }
 
@@ -38,7 +39,7 @@ export default class Users extends React.Component {
               <li style={{ fontSize: 20 }} className="list-group-item users" key={user.id}>
               {user.name}
               &nbsp;&nbsp;&nbsp;
-              <button className="btn btn-secondary" onClick={() => onDelete(user.id)}>Delete</button>
+              <button className="btn btn-secondary" onClick={(ev) => onDelete(ev, user.id)}>Delete</button>
               </li>
               </Link>
               ))
