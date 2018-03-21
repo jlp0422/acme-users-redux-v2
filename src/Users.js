@@ -35,7 +35,7 @@ export default class Users extends React.Component {
         <ul className="list-group" >
           {
             users.map(user => (
-              <Link className="users" to={`/users/${user.id}`}>
+              <Link key={ user.id } className="users" to={`/users/${user.id}`}>
               <li style={{ fontSize: 20 }} className="list-group-item users" key={user.id}>
               {user.name}
               &nbsp;&nbsp;&nbsp;

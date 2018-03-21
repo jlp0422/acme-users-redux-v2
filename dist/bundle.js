@@ -26431,7 +26431,7 @@ var Users = function (_React$Component) {
           users.map(function (user) {
             return _react2.default.createElement(
               _reactRouterDom.Link,
-              { className: 'users', to: '/users/' + user.id },
+              { key: user.id, className: 'users', to: '/users/' + user.id },
               _react2.default.createElement(
                 'li',
                 { style: { fontSize: 20 }, className: 'list-group-item users', key: user.id },
